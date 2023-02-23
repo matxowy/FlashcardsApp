@@ -1,12 +1,47 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext {
+        // App
+        appCompatVersion = "1.6.1"
+        constraintLayoutVersion = "2.1.4"
+        coroutinesVersion = "1.5.0"
+        fragmentVersion = "1.5.5"
+        gradleVersion = '7.4.1'
+        hiltVersion = "2.44.2"
+        kotlinVersion = "1.9.0"
+        kotlinGradleVersion = '1.8.0'
+        lifecycleVersion = "2.5.1"
+        materialVersion = "1.8.0"
+        navigationVersion = "2.5.3"
+        roomVersion = "2.5.0"
+        legacySupportVersion = "1.0.0"
+        googleServicesVersion = "4.3.13"
+        firebaseBomVersion = "31.1.1"
+        crashlyticsGradleVersion = "2.9.2"
+        // Test
+        junitVersion = "4.13.2"
+        espressoVersion = "3.5.1"
+        mockitoVersion = "3.3.3"
+        testExtJunitVersion = "1.1.5"
+        coreTestingVersion = "2.1.0"
+        coroutinesTestVersion = "1.6.1"
+        mockkVersion = "1.13.4"
+        kotestVersion = "5.5.4"
+        turbineVersion = "0.12.1"
+        coreTestVersion = "1.5.0"
+    }
+
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.4"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+        classpath "com.android.tools.build:gradle:$gradleVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinGradleVersion"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
+        classpath "com.google.gms:google-services:$googleServicesVersion"
+        classpath "com.google.firebase:firebase-crashlytics-gradle:$crashlyticsGradleVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
