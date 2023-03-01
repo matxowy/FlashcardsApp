@@ -15,5 +15,5 @@ class AppModule {
     @Provides
     @Singleton
     @Named("IO")
-    fun provideIOCoroutineDispatcher() : CoroutineDispatcher = Dispatchers.IO
+    fun provideIOCoroutineDispatcher(): CoroutineDispatcher = Dispatchers.IO
 }
