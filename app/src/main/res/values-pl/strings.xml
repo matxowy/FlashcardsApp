@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Flashcards Application</string>
+
+    <string name="add_category_btn_text">Dodaj kategorię</string>
+    <string name="add_flashcards_btn_text">Dodaj fiszki</string>
+    <string name="choose_a_category_to_start_learning">Wybierz kategorię by zacząć naukę!</string>
+</resources>

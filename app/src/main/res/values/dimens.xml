@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_side_margin">10dp</dimen>
+
+    <dimen name="very_small_margin">5dp</dimen>
+    <dimen name="small_margin">10dp</dimen>
+    <dimen name="medium_margin">15dp</dimen>
+    <dimen name="high_margin">20dp</dimen>
+    <dimen name="very_high_margin">40dp</dimen>
+    <dimen name="large_margin">70dp</dimen>
+
+    <dimen name="very_small_padding">5dp</dimen>
+    <dimen name="small_padding">10dp</dimen>
+    <dimen name="medium_padding">15dp</dimen>
+    <dimen name="high_padding">20dp</dimen>
+
+    <dimen name="max_constraint_width_for_buttons">320dp</dimen>
+    <dimen name="max_constraint_width_for_textview">488dp</dimen>
+</resources>
