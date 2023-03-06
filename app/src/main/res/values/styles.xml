@@ -3,4 +3,8 @@
     <style name="Widget.App.ExposedDropdownMenu" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="android:background">?attr/colorOnSecondary</item>
     </style>
+
+    <style name="Widget.App.OutlinedBox" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="android:background">?attr/colorOnSecondary</item>
+    </style>
 </resources>

@@ -5,4 +5,6 @@
     <string name="add_category_btn_text">Dodaj kategorię</string>
     <string name="add_flashcards_btn_text">Dodaj fiszki</string>
     <string name="choose_a_category_to_start_learning">Wybierz kategorię by zacząć naukę!</string>
+    <string name="category_name_text">Nazwa kategorii</string>
+    <string name="add_category_text">Dodaj kategorię</string>
 </resources>

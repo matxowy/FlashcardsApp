@@ -4,4 +4,6 @@
     <string name="add_category_btn_text">Add category</string>
     <string name="add_flashcards_btn_text">Add flashcards</string>
     <string name="choose_a_category_to_start_learning">Choose a category to start learning!</string>
+    <string name="category_name_text">Category name</string>
+    <string name="add_category_text">Add category</string>
 </resources>

@@ -9,6 +9,15 @@
         android:id="@+id/mainScreenFragment"
         android:name="com.matxowy.flashcardsapp.presentation.mainscreen.view.MainScreenFragment"
         android:label="MainScreenFragment"
-        tools:layout="@layout/main_screen_fragment"/>
+        tools:layout="@layout/main_screen_fragment">
+        <action
+            android:id="@+id/action_mainScreenFragment_to_addCategoryFragment"
+            app:destination="@id/addCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCategoryFragment"
+        android:name="com.matxowy.flashcardsapp.presentation.addcategory.view.AddCategoryFragment"
+        android:label="AddCategoryFragment"
+        tools:layout="@layout/add_category_fragment"/>
 
 </navigation>
