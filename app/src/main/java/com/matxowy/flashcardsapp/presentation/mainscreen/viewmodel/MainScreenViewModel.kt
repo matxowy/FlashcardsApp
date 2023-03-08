@@ -16,8 +16,11 @@ class MainScreenViewModel @Inject constructor() : ViewModel() {
 
     fun onAddCategoryButtonClick() = MainScreenEvent.NavigateToAddCategory.send()
 
+    fun onAddFlashcardsButtonClick() = MainScreenEvent.NavigateToAddFlashcards.send()
+
     sealed class MainScreenEvent {
         object NavigateToAddCategory : MainScreenEvent()
+        object NavigateToAddFlashcards : MainScreenEvent()
     }
 
     private fun MainScreenEvent.send() {

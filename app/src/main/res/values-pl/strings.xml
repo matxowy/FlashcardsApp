@@ -7,4 +7,8 @@
     <string name="choose_a_category_to_start_learning">Wybierz kategorię by zacząć naukę!</string>
     <string name="category_name_text">Nazwa kategorii</string>
     <string name="add_category_text">Dodaj kategorię</string>
+    <string name="choose_a_category_to_add_flashcard">Wybierz kategorię aby dodać fiszkę</string>
+    <string name="front_of_flashcard_hint_text">Przód fiszki</string>
+    <string name="back_of_flashcard_hint_text">Tył fiszki</string>
+    <string name="add_flashcard_btn_text">Dodaj fiszkę</string>
 </resources>

@@ -13,11 +13,19 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_addCategoryFragment"
             app:destination="@id/addCategoryFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_addFlashcardsFragment"
+            app:destination="@id/addFlashcardsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCategoryFragment"
         android:name="com.matxowy.flashcardsapp.presentation.addcategory.view.AddCategoryFragment"
         android:label="AddCategoryFragment"
         tools:layout="@layout/add_category_fragment"/>
+    <fragment
+        android:id="@+id/addFlashcardsFragment"
+        android:name="com.matxowy.flashcardsapp.presentation.addflashcardsscreen.view.AddFlashcardsFragment"
+        android:label="add_flashcards_fragment"
+        tools:layout="@layout/add_flashcards_fragment" />
 
 </navigation>

@@ -31,6 +31,10 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment) {
         binding.btnAddCategory.setOnClickListener {
             viewModel.onAddCategoryButtonClick()
         }
+
+        binding.btnAddFlashcards.setOnClickListener {
+            viewModel.onAddFlashcardsButtonClick()
+        }
     }
 
     private fun handleMainScreenEvents() {
@@ -39,6 +43,10 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment) {
                 when (event) {
                     MainScreenViewModel.MainScreenEvent.NavigateToAddCategory -> {
                         val action = MainScreenFragmentDirections.actionMainScreenFragmentToAddCategoryFragment()
+                        findNavController().navigate(action)
+                    }
+                    MainScreenViewModel.MainScreenEvent.NavigateToAddFlashcards -> {
+                        val action = MainScreenFragmentDirections.actionMainScreenFragmentToAddFlashcardsFragment()
                         findNavController().navigate(action)
                     }
                 }
