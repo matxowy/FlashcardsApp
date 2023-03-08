@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainScreenFragment"
-        android:name="com.matxowy.flashcardsapp.presentation.mainscreen.view.MainScreenFragment"
+        android:name="com.matxowy.flashcardsapp.presentation.main.view.MainScreenFragment"
         android:label="MainScreenFragment"
         tools:layout="@layout/main_screen_fragment">
         <action
@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_addFlashcardsFragment"
             app:destination="@id/addFlashcardsFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_learningScreenFragment"
+            app:destination="@id/learningScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCategoryFragment"
@@ -27,5 +30,10 @@
         android:name="com.matxowy.flashcardsapp.presentation.addflashcardsscreen.view.AddFlashcardsFragment"
         android:label="add_flashcards_fragment"
         tools:layout="@layout/add_flashcards_fragment" />
+    <fragment
+        android:id="@+id/learningScreenFragment"
+        android:name="com.matxowy.flashcardsapp.presentation.learning.view.LearningScreenFragment"
+        android:label="learning_screen_fragment"
+        tools:layout="@layout/learning_screen_fragment" />
 
 </navigation>

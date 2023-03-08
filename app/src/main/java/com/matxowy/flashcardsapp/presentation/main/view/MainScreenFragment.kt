@@ -1,4 +1,4 @@
-package com.matxowy.flashcardsapp.presentation.mainscreen.view
+package com.matxowy.flashcardsapp.presentation.main.view
 
 import android.os.Bundle
 import android.view.View
@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.matxowy.flashcardsapp.R
 import com.matxowy.flashcardsapp.databinding.MainScreenFragmentBinding
-import com.matxowy.flashcardsapp.presentation.mainscreen.viewmodel.MainScreenViewModel
+import com.matxowy.flashcardsapp.presentation.main.viewmodel.MainScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,12 +28,17 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment) {
     }
 
     private fun setListeners() {
-        binding.btnAddCategory.setOnClickListener {
-            viewModel.onAddCategoryButtonClick()
-        }
-
-        binding.btnAddFlashcards.setOnClickListener {
-            viewModel.onAddFlashcardsButtonClick()
+        binding.apply {
+            btnAddCategory.setOnClickListener {
+                viewModel.onAddCategoryButtonClick()
+            }
+            btnAddFlashcards.setOnClickListener {
+                viewModel.onAddFlashcardsButtonClick()
+            }
+            // TODO: Change to proper listener
+            spinnerCategories.setOnClickListener {
+                viewModel.onItemSpinnerClick()
+            }
         }
     }
 
@@ -49,8 +54,17 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment) {
                         val action = MainScreenFragmentDirections.actionMainScreenFragmentToAddFlashcardsFragment()
                         findNavController().navigate(action)
                     }
+                    MainScreenViewModel.MainScreenEvent.NavigateToLearning -> {
+                        val action = MainScreenFragmentDirections.actionMainScreenFragmentToLearningScreenFragment()
+                        findNavController().navigate(action)
+                    }
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
