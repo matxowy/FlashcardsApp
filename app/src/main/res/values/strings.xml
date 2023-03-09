@@ -12,4 +12,7 @@
     <string name="add_flashcard_btn_text">Add flashcard</string>
     <string name="next_btn_text">NEXT</string>
     <string name="previous_btn_text">PREVIOUS</string>
+    <string name="default_category_name">Default category</string>
+    <string name="default_front_text">Default front text</string>
+    <string name="default_back_text">Domyślny tekst z tyłu</string>
 </resources>

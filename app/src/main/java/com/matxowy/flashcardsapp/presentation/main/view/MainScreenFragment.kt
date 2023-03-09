@@ -1,15 +1,20 @@
 package com.matxowy.flashcardsapp.presentation.main.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.matxowy.flashcardsapp.R
 import com.matxowy.flashcardsapp.databinding.MainScreenFragmentBinding
 import com.matxowy.flashcardsapp.presentation.main.viewmodel.MainScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainScreenFragment : Fragment(R.layout.main_screen_fragment) {
@@ -25,6 +30,23 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment) {
 
         handleMainScreenEvents()
         setListeners()
+        setObservers()
+    }
+
+    private fun setObservers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.categories.collect { listOfCategories ->
+                    val namesOfTheCategories = viewModel.getNamesOfTheCategories(listOfCategories)
+                    setSpinner(requireContext(), namesOfTheCategories)
+                }
+            }
+        }
+    }
+
+    private fun setSpinner(context: Context, namesOfTheCategories: List<String>) {
+        val spinnerAdapter = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, namesOfTheCategories)
+        binding.spinnerCategories.setAdapter(spinnerAdapter)
     }
 
     private fun setListeners() {
