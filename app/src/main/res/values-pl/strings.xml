@@ -11,4 +11,6 @@
     <string name="front_of_flashcard_hint_text">Przód fiszki</string>
     <string name="back_of_flashcard_hint_text">Tył fiszki</string>
     <string name="add_flashcard_btn_text">Dodaj fiszkę</string>
+    <string name="next_btn_text">NASTĘPNY</string>
+    <string name="previous_btn_text">POPRZEDNI</string>
 </resources>

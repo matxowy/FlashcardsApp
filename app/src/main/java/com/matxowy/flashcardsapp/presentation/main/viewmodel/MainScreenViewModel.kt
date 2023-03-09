@@ -1,4 +1,4 @@
-package com.matxowy.flashcardsapp.presentation.mainscreen.viewmodel
+package com.matxowy.flashcardsapp.presentation.main.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,9 +18,12 @@ class MainScreenViewModel @Inject constructor() : ViewModel() {
 
     fun onAddFlashcardsButtonClick() = MainScreenEvent.NavigateToAddFlashcards.send()
 
+    fun onItemSpinnerClick() = MainScreenEvent.NavigateToLearning.send()
+
     sealed class MainScreenEvent {
         object NavigateToAddCategory : MainScreenEvent()
         object NavigateToAddFlashcards : MainScreenEvent()
+        object NavigateToLearning : MainScreenEvent()
     }
 
     private fun MainScreenEvent.send() {
