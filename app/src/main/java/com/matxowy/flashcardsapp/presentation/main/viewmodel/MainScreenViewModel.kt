@@ -26,12 +26,12 @@ class MainScreenViewModel @Inject constructor(
 
     fun onAddFlashcardsButtonClick() = MainScreenEvent.NavigateToAddFlashcards.send()
 
-    fun onItemSpinnerClick() = MainScreenEvent.NavigateToLearning.send()
+    fun onItemSpinnerClick(categoryId: Int) = MainScreenEvent.NavigateToLearning(categoryId).send()
 
     sealed class MainScreenEvent {
         object NavigateToAddCategory : MainScreenEvent()
         object NavigateToAddFlashcards : MainScreenEvent()
-        object NavigateToLearning : MainScreenEvent()
+        data class NavigateToLearning(val categoryId: Int) : MainScreenEvent()
     }
 
     private fun MainScreenEvent.send() {

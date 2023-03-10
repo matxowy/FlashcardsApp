@@ -43,7 +43,7 @@ abstract class FlashcardsDatabase : RoomDatabase() {
                     Flashcard(
                         frontText = context.getString(R.string.default_front_text),
                         backText = context.getString(R.string.default_back_text),
-                        categoryId = 0
+                        categoryId = 1
                     )
                 )
             }

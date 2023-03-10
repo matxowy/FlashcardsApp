@@ -13,6 +13,9 @@ interface FlashcardDao {
     @Query("SELECT * FROM flashcard WHERE id = :flashcardId")
     fun getFlashcardById(flashcardId: Int): Flashcard
 
+    @Query("SELECT * FROM flashcard WHERE categoryId = :categoryId ORDER BY id")
+    fun getFlashcardsForCategory(categoryId: Int): List<Flashcard>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(flashcard: Flashcard)
 
