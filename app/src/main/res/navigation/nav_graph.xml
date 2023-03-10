@@ -34,6 +34,10 @@
         android:id="@+id/learningScreenFragment"
         android:name="com.matxowy.flashcardsapp.presentation.learning.view.LearningScreenFragment"
         android:label="learning_screen_fragment"
-        tools:layout="@layout/learning_screen_fragment" />
+        tools:layout="@layout/learning_screen_fragment" >
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

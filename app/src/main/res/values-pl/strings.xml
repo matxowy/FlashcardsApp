@@ -13,4 +13,7 @@
     <string name="add_flashcard_btn_text">Dodaj fiszkę</string>
     <string name="next_btn_text">NASTĘPNY</string>
     <string name="previous_btn_text">POPRZEDNI</string>
+    <string name="default_category_name">Domyślna kategoria</string>
+    <string name="default_front_text">Domyślny tekst z przodu</string>
+    <string name="default_back_text">Default back text</string>
 </resources>
