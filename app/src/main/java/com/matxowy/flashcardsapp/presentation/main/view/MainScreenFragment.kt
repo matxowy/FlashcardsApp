@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -29,18 +30,21 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment) {
 
         handleMainScreenEvents()
         setListeners()
-        setObservers()
+        handleViewState()
     }
 
-    private fun setObservers() {
-        viewModel.categories.observeWithLifecycle(viewLifecycleOwner) { listOfCategories ->
-            setSpinner(requireContext(), listOfCategories)
+    private fun handleViewState() {
+        viewModel.viewState.observeWithLifecycle(viewLifecycleOwner) { viewState ->
+            setSpinner(requireContext(), viewState.categories)
+            binding.apply {
+                cpiLoading.isVisible = viewState.isLoading
+                tilSpinnerCategories.isVisible = viewState.isLoading.not()
+            }
         }
     }
 
     private fun setSpinner(context: Context, listOfCategories: List<Category>) {
-        val namesOfTheCategories = viewModel.getNamesOfTheCategories(listOfCategories)
-        val spinnerAdapter = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, namesOfTheCategories)
+        val spinnerAdapter = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, listOfCategories)
         binding.apply {
             spinnerCategories.setAdapter(spinnerAdapter)
             spinnerCategories.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -85,6 +89,11 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment) {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadData()
     }
 
     override fun onDestroy() {

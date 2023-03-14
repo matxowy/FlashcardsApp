@@ -1,10 +1,10 @@
 package com.matxowy.flashcardsapp.domain.learning
 
-import com.matxowy.flashcardsapp.data.learning.repository.LearningScreenRepository
+import com.matxowy.flashcardsapp.data.db.repository.DatabaseRepository
 import javax.inject.Inject
 
 class GetCategoryNameUseCase @Inject constructor(
-    private val learningScreenRepository: LearningScreenRepository
+    private val databaseRepository: DatabaseRepository
 ) {
-    suspend operator fun invoke(categoryId: Int) = learningScreenRepository.getCategoryName(categoryId)
+    suspend operator fun invoke(categoryId: Int) = databaseRepository.getCategoryName(categoryId)
 }

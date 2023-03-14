@@ -4,6 +4,8 @@ import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.os.Bundle
 import android.view.View
+import androidx.core.animation.doOnEnd
+import androidx.core.animation.doOnStart
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,6 +27,7 @@ class LearningScreenFragment : Fragment(R.layout.learning_screen_fragment) {
     private lateinit var frontAnimation: AnimatorSet
     private lateinit var backAnimation: AnimatorSet
     private var isFront = true
+    private var isAnimationRunning = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,13 +48,10 @@ class LearningScreenFragment : Fragment(R.layout.learning_screen_fragment) {
         viewModel.viewState.observeWithLifecycle(viewLifecycleOwner) { viewState ->
             binding.apply {
                 cpiLoading.isVisible = viewState.isLoading
-                mcvFlashcardFront.isVisible = viewState.isLoading.not()
-                mcvFlashcardBack.isVisible = viewState.isLoading.not()
-                btnNext.isVisible = viewState.isLoading.not()
-                btnPrevious.isVisible = viewState.isLoading.not()
+                clLearningFields.isVisible = viewState.isLoading.not()
                 mtvCategoryName.text = viewState.categoryName
-                mtvFlashcardFront.text = viewState.flashcards.getOrNull(FIRST_FLASHCARD_INDEX)?.frontText ?: EMPTY_STRING
-                mtvFlashcardBack.text = viewState.flashcards.getOrNull(FIRST_FLASHCARD_INDEX)?.backText ?: EMPTY_STRING
+                mtvFlashcardFront.text = viewState.flashcard.frontText
+                mtvFlashcardBack.text = viewState.flashcard.backText
             }
         }
     }
@@ -79,18 +79,32 @@ class LearningScreenFragment : Fragment(R.layout.learning_screen_fragment) {
             binding.mcvFlashcardFront.cameraDistance = DISTANCE * scale
             binding.mcvFlashcardBack.cameraDistance = DISTANCE * scale
 
-            isFront = if (isFront) {
-                frontAnimation.setTarget(binding.mcvFlashcardBack)
-                backAnimation.setTarget(binding.mcvFlashcardFront)
-                frontAnimation.start()
-                backAnimation.start()
-                false
-            } else {
-                frontAnimation.setTarget(binding.mcvFlashcardFront)
-                backAnimation.setTarget(binding.mcvFlashcardBack)
-                backAnimation.start()
-                frontAnimation.start()
-                true
+            if (isAnimationRunning.not()) {
+                isFront = if (isFront) {
+                    frontAnimation.setTarget(binding.mcvFlashcardBack)
+                    backAnimation.setTarget(binding.mcvFlashcardFront)
+                    frontAnimation.apply {
+                        doOnStart { isAnimationRunning = true }
+                        start()
+                    }
+                    backAnimation.apply {
+                        doOnEnd { isAnimationRunning = false }
+                        start()
+                    }
+                    false
+                } else {
+                    frontAnimation.setTarget(binding.mcvFlashcardFront)
+                    backAnimation.setTarget(binding.mcvFlashcardBack)
+                    backAnimation.apply {
+                        doOnStart { isAnimationRunning = true }
+                        start()
+                    }
+                    frontAnimation.apply {
+                        doOnEnd { isAnimationRunning = false }
+                        start()
+                    }
+                    true
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -104,7 +118,5 @@ class LearningScreenFragment : Fragment(R.layout.learning_screen_fragment) {
 
     companion object {
         const val DISTANCE = 8000
-        const val FIRST_FLASHCARD_INDEX = 0
-        const val EMPTY_STRING = ""
     }
 }

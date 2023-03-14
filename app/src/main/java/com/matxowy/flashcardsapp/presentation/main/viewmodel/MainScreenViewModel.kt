@@ -5,22 +5,32 @@ import androidx.lifecycle.viewModelScope
 import com.matxowy.flashcardsapp.data.db.entity.Category
 import com.matxowy.flashcardsapp.domain.main.usecase.GetCategoriesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
-    private val getCategoriesUseCase: GetCategoriesUseCase
+    private val getCategoriesUseCase: GetCategoriesUseCase,
+    @Named("IO") private val coroutineDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val mainScreenChannel = Channel<MainScreenEvent>(capacity = Channel.BUFFERED)
     val mainScreenEvent = mainScreenChannel.receiveAsFlow()
 
-    val categories = getCategoriesUseCase()
+    private val _viewState = MutableStateFlow(ViewState())
+    val viewState = _viewState.asStateFlow()
 
-    fun getNamesOfTheCategories(listOfCategories: List<Category>) = listOfCategories.map { category -> category.name }
+    fun loadData() = viewModelScope.launch(coroutineDispatcher) {
+        val categories = getCategoriesUseCase()
+        _viewState.update { it.copy(isLoading = false, categories = categories) }
+    }
 
     fun onAddCategoryButtonClick() = MainScreenEvent.NavigateToAddCategory.send()
 
@@ -33,6 +43,11 @@ class MainScreenViewModel @Inject constructor(
         object NavigateToAddFlashcards : MainScreenEvent()
         data class NavigateToLearning(val categoryId: Int) : MainScreenEvent()
     }
+
+    data class ViewState(
+        val isLoading: Boolean = true,
+        val categories: List<Category> = emptyList()
+    )
 
     private fun MainScreenEvent.send() {
         viewModelScope.launch { mainScreenChannel.send(this@send) }

@@ -23,15 +23,24 @@ class LearningScreenViewModel @Inject constructor(
     private val _viewState = MutableStateFlow(ViewState())
     val viewState = _viewState.asStateFlow()
 
+    private lateinit var flashcardsList: List<Flashcard>
+
     fun loadData(categoryId: Int) = viewModelScope.launch(coroutineDispatcher) {
+        flashcardsList = getFlashcardsUseCase(categoryId)
         val categoryName = getCategoryNameUseCase(categoryId)
-        val flashcardsList = getFlashcardsUseCase(categoryId)
-        _viewState.update { it.copy(isLoading = false, categoryName = categoryName, flashcards = flashcardsList) }
+        val firstFlashcard = flashcardsList[FIRST_FLASHCARD_INDEX]
+        _viewState.update { it.copy(isLoading = false, categoryName = categoryName, flashcard = firstFlashcard) }
     }
 
     data class ViewState(
         val isLoading: Boolean = true,
-        val categoryName: String = "",
-        val flashcards: List<Flashcard> = emptyList()
+        val categoryName: String = EMPTY_STRING,
+        val flashcard: Flashcard = Flashcard(frontText = EMPTY_STRING, backText = EMPTY_STRING, categoryId = DEFAULT_CATEGORY_ID)
     )
+
+    companion object {
+        const val FIRST_FLASHCARD_INDEX = 0
+        const val DEFAULT_CATEGORY_ID = 0
+        const val EMPTY_STRING = ""
+    }
 }
