@@ -9,6 +9,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -27,9 +28,13 @@ class MainScreenViewModel @Inject constructor(
     private val _viewState = MutableStateFlow(ViewState())
     val viewState = _viewState.asStateFlow()
 
-    fun loadData() = viewModelScope.launch(coroutineDispatcher) {
-        val categories = getCategoriesUseCase()
-        _viewState.update { it.copy(isLoading = false, categories = categories) }
+    init {
+        viewModelScope.launch(coroutineDispatcher) {
+            val categories = getCategoriesUseCase()
+            categories.collectLatest { categoriesList ->
+                _viewState.update { it.copy(isLoading = false, categories = categoriesList) }
+            }
+        }
     }
 
     fun onAddCategoryButtonClick() = MainScreenEvent.NavigateToAddCategory.send()

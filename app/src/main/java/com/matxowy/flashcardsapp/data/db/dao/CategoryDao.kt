@@ -7,11 +7,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.matxowy.flashcardsapp.data.db.entity.Category
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CategoryDao {
     @Query("SELECT * FROM category ORDER BY id")
-    fun getCategories(): List<Category>
+    fun getCategories(): Flow<List<Category>>
 
     @Query("SELECT name FROM category WHERE id = :categoryId")
     fun getCategoryName(categoryId: Int): String

@@ -91,11 +91,6 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment) {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.loadData()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
