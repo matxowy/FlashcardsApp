@@ -7,6 +7,21 @@
     android:layout_margin="@dimen/default_side_margin"
     tools:context=".presentation.learning.view.LearningScreenFragment">
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/cpiLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clLearningFields"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideCardStart"
         android:layout_width="0dp"
@@ -40,7 +55,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/clFlashcardFront"
+        android:id="@+id/mcvFlashcardFront"
         style="@style/Widget.App.FlashcardCardStyle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -75,7 +90,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/clFlashcardBack"
+        android:id="@+id/mcvFlashcardBack"
         style="@style/Widget.App.FlashcardCardStyle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -112,11 +127,13 @@
         android:id="@+id/mtvCategoryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/high_margin"
         android:textAppearance="?attr/textAppearanceHeadlineMedium"
         app:layout_constraintBottom_toTopOf="@id/guideCardStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="CATEGORY NAME" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
