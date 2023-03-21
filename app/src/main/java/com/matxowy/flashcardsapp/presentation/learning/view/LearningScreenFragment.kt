@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.matxowy.flashcardsapp.R
-import com.matxowy.flashcardsapp.app.utils.observeWithLifecycle
+import com.matxowy.flashcardsapp.app.utils.extensions.observeWithLifecycle
 import com.matxowy.flashcardsapp.databinding.LearningScreenFragmentBinding
 import com.matxowy.flashcardsapp.presentation.learning.viewmodel.LearningScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -111,8 +111,8 @@ class LearningScreenFragment : Fragment(R.layout.learning_screen_fragment) {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

@@ -17,6 +17,9 @@ interface CategoryDao {
     @Query("SELECT name FROM category WHERE id = :categoryId")
     fun getCategoryName(categoryId: Int): String
 
+    @Query("SELECT id FROM category ORDER BY id DESC LIMIT 1")
+    fun getIdOfTheNewestCategory(): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(category: Category)
 

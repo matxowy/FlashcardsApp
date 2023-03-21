@@ -16,4 +16,9 @@
     <string name="default_category_name">Domyślna kategoria</string>
     <string name="default_front_text">Domyślny tekst z przodu</string>
     <string name="default_back_text">Default back text</string>
+    <string name="add_btn_text">Dodaj</string>
+    <string name="cancel_btn_text">Anuluj</string>
+    <string name="default_error_message">Coś poszło nie tak. Spróbuj ponownie</string>
+    <string name="category_added_message">Kategoria została dodana</string>
+    <string name="first_flashcard_dialog_text">Dodaj pierwszą fiszkę do podanej kategorii aby kontynuować</string>
 </resources>

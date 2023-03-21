@@ -56,7 +56,7 @@
         android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal"
+        app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal"
         app:layout_constraintWidth_max="@dimen/max_constraint_width_for_textview">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView

@@ -15,4 +15,9 @@
     <string name="default_category_name">Default category</string>
     <string name="default_front_text">Default front text</string>
     <string name="default_back_text">Domyślny tekst z tyłu</string>
+    <string name="add_btn_text">Add</string>
+    <string name="cancel_btn_text">Cancel</string>
+    <string name="default_error_message">Something went wrong. Try again</string>
+    <string name="category_added_message">The category has been added</string>
+    <string name="first_flashcard_dialog_text">Add the first flashcard to the given category to continue</string>
 </resources>

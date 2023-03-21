@@ -8,8 +8,19 @@
         <item name="boxBackgroundColor">?attr/colorOnSecondary</item>
     </style>
 
+    <style name="Widget.App.FilledBox" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">?attr/colorOnSecondary</item>
+    </style>
+
     <style name="Widget.App.FlashcardCardStyle" parent="Widget.Material3.CardView.Outlined">
         <item name="cardBackgroundColor">?attr/colorOnSecondary</item>
+    </style>
+
+    <style name="DialogTitle">
+        <item name="android:background">?attr/colorPrimaryContainer</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAppearance">?attr/textAppearanceTitleLarge</item>
+        <item name="android:padding">@dimen/small_padding</item>
     </style>
 
 </resources>

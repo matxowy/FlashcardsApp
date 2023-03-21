@@ -3,8 +3,8 @@ package com.matxowy.flashcardsapp.presentation.learning.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.matxowy.flashcardsapp.data.db.entity.Flashcard
-import com.matxowy.flashcardsapp.domain.learning.GetCategoryNameUseCase
-import com.matxowy.flashcardsapp.domain.learning.GetFlashcardsUseCase
+import com.matxowy.flashcardsapp.domain.learning.usecase.GetCategoryNameUseCase
+import com.matxowy.flashcardsapp.domain.learning.usecase.GetFlashcardsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow

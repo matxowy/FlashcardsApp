@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.matxowy.flashcardsapp.R
-import com.matxowy.flashcardsapp.app.utils.observeWithLifecycle
+import com.matxowy.flashcardsapp.app.utils.extensions.observeWithLifecycle
 import com.matxowy.flashcardsapp.data.db.entity.Category
 import com.matxowy.flashcardsapp.databinding.MainScreenFragmentBinding
 import com.matxowy.flashcardsapp.presentation.main.viewmodel.MainScreenViewModel
@@ -91,8 +91,8 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment) {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }
