@@ -55,7 +55,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mcvFlashcardFront"
+        android:id="@+id/mcvFlashcardBack"
         style="@style/Widget.App.FlashcardCardStyle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -90,7 +90,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mcvFlashcardBack"
+        android:id="@+id/mcvFlashcardFront"
         style="@style/Widget.App.FlashcardCardStyle"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -47,8 +47,10 @@ class LearningScreenFragment : Fragment(R.layout.learning_screen_fragment) {
     private fun handleViewState() {
         viewModel.viewState.observeWithLifecycle(viewLifecycleOwner) { viewState ->
             binding.apply {
-                cpiLoading.isVisible = viewState.isLoading
+                btnNext.isEnabled = viewState.isLastFlashcard.not()
+                btnPrevious.isVisible = viewState.isFirstFlashcard.not()
                 clLearningFields.isVisible = viewState.isLoading.not()
+                cpiLoading.isVisible = viewState.isLoading
                 mtvCategoryName.text = viewState.categoryName
                 mtvFlashcardFront.text = viewState.flashcard.frontText
                 mtvFlashcardBack.text = viewState.flashcard.backText
@@ -65,6 +67,23 @@ class LearningScreenFragment : Fragment(R.layout.learning_screen_fragment) {
             mcvFlashcardBack.setOnClickListener {
                 onFlashcardClick()
             }
+            btnNext.setOnClickListener {
+                if (isFront.not()) setFlashcardToFrontWithoutAnimation()
+                viewModel.onClickButtonNext()
+            }
+            btnPrevious.setOnClickListener {
+                if (isFront.not()) setFlashcardToFrontWithoutAnimation()
+                viewModel.onClickButtonPrevious()
+            }
+        }
+    }
+
+    private fun setFlashcardToFrontWithoutAnimation() {
+        binding.apply {
+            mcvFlashcardBack.alpha = FULL_TRANSPARENT
+            mcvFlashcardFront.alpha = FULL_OPAQUE
+            mcvFlashcardFront.rotationY = NOT_ROTATED
+            isFront = true
         }
     }
 
@@ -74,40 +93,58 @@ class LearningScreenFragment : Fragment(R.layout.learning_screen_fragment) {
     }
 
     private fun onFlashcardClick() {
-        try {
-            val scale = requireContext().applicationContext.resources.displayMetrics.density
-            binding.mcvFlashcardFront.cameraDistance = DISTANCE * scale
-            binding.mcvFlashcardBack.cameraDistance = DISTANCE * scale
+        with(binding) {
+            try {
+                val scale = requireContext().applicationContext.resources.displayMetrics.density
+                mcvFlashcardFront.cameraDistance = DISTANCE * scale
+                mcvFlashcardBack.cameraDistance = DISTANCE * scale
 
-            if (isAnimationRunning.not()) {
-                isFront = if (isFront) {
-                    frontAnimation.setTarget(binding.mcvFlashcardBack)
-                    backAnimation.setTarget(binding.mcvFlashcardFront)
-                    frontAnimation.apply {
-                        doOnStart { isAnimationRunning = true }
-                        start()
+                if (isAnimationRunning.not()) {
+                    isFront = if (isFront) {
+                        frontAnimation.setTarget(mcvFlashcardFront)
+                        backAnimation.setTarget(mcvFlashcardBack)
+                        frontAnimation.apply {
+                            doOnStart {
+                                isAnimationRunning = true
+                                btnNext.isClickable = false
+                                btnPrevious.isClickable = false
+                            }
+                            start()
+                        }
+                        backAnimation.apply {
+                            doOnEnd {
+                                isAnimationRunning = false
+                                btnNext.isClickable = true
+                                btnPrevious.isClickable = true
+                            }
+                            start()
+                        }
+                        false
+                    } else {
+                        frontAnimation.setTarget(mcvFlashcardBack)
+                        backAnimation.setTarget(mcvFlashcardFront)
+                        backAnimation.apply {
+                            doOnStart {
+                                isAnimationRunning = true
+                                btnNext.isClickable = false
+                                btnPrevious.isClickable = false
+                            }
+                            start()
+                        }
+                        frontAnimation.apply {
+                            doOnEnd {
+                                isAnimationRunning = false
+                                btnNext.isClickable = true
+                                btnPrevious.isClickable = true
+                            }
+                            start()
+                        }
+                        true
                     }
-                    backAnimation.apply {
-                        doOnEnd { isAnimationRunning = false }
-                        start()
-                    }
-                    false
-                } else {
-                    frontAnimation.setTarget(binding.mcvFlashcardFront)
-                    backAnimation.setTarget(binding.mcvFlashcardBack)
-                    backAnimation.apply {
-                        doOnStart { isAnimationRunning = true }
-                        start()
-                    }
-                    frontAnimation.apply {
-                        doOnEnd { isAnimationRunning = false }
-                        start()
-                    }
-                    true
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 
@@ -118,5 +155,8 @@ class LearningScreenFragment : Fragment(R.layout.learning_screen_fragment) {
 
     companion object {
         const val DISTANCE = 8000
+        const val FULL_TRANSPARENT = 0.0F
+        const val FULL_OPAQUE = 1.0F
+        const val NOT_ROTATED = 0.0F
     }
 }

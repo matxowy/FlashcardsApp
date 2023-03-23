@@ -46,6 +46,21 @@ abstract class FlashcardsDatabase : RoomDatabase() {
                         categoryId = 1
                     )
                 )
+                // TODO: Remove inserting more than one flashcard when adding flashcards will be implemented (after FCA-12)
+                flashcardDao.insert(
+                    Flashcard(
+                        frontText = "testPL",
+                        backText = "testANG",
+                        categoryId = 1
+                    )
+                )
+                flashcardDao.insert(
+                    Flashcard(
+                        frontText = "test2PL",
+                        backText = "test2ANG",
+                        categoryId = 1
+                    )
+                )
             }
         }
     }
