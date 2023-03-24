@@ -65,15 +65,21 @@ class AddFirstFlashcardDialogFragment(private val categoryName: String) : Dialog
     }
 
     private fun addTextListenersToFields(alertDialog: AlertDialog) {
-        binding.flashcardFront.addTextChangedListener { text ->
-            flashcardTextFront = text.toString()
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = flashcardTextFront.isNotBlank() && flashcardTextBack.isNotBlank()
-        }
+        binding.apply {
+            flashcardFront.addTextChangedListener { text ->
+                flashcardTextFront = text.toString()
+                setButtonState(alertDialog)
+            }
 
-        binding.flashcardBack.addTextChangedListener { text ->
-            flashcardTextBack = text.toString()
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = flashcardTextBack.isNotBlank() && flashcardTextFront.isNotBlank()
+            flashcardBack.addTextChangedListener { text ->
+                flashcardTextBack = text.toString()
+                setButtonState(alertDialog)
+            }
         }
+    }
+
+    private fun setButtonState(alertDialog: AlertDialog) {
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = flashcardTextFront.isNotBlank() && flashcardTextBack.isNotBlank()
     }
 
     private fun setButtonPositiveToDisabled(alertDialog: AlertDialog) {

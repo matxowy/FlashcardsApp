@@ -46,10 +46,10 @@ class AddCategoryFragment : Fragment(R.layout.add_category_fragment) {
                     dialog.show(parentFragmentManager, ADD_FIRST_FLASHCARD_DIALOG_TAG)
                 }
                 is AddCategoryViewModel.AddCategoryEvent.ShowDefaultError -> {
-                    Snackbar.make(requireView(), getString(R.string.default_error_message), Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(requireView(), R.string.default_error_message, Snackbar.LENGTH_LONG).show()
                 }
                 is AddCategoryViewModel.AddCategoryEvent.ShowAddCategoryConfirmationMessage -> {
-                    Snackbar.make(requireView(), getString(R.string.category_added_message), Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(requireView(), R.string.category_added_message, Snackbar.LENGTH_LONG).show()
                 }
             }
         }
