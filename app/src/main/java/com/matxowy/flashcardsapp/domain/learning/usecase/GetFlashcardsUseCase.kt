@@ -1,4 +1,4 @@
-package com.matxowy.flashcardsapp.domain.learning
+package com.matxowy.flashcardsapp.domain.learning.usecase
 
 import com.matxowy.flashcardsapp.data.db.repository.DatabaseRepository
 import javax.inject.Inject

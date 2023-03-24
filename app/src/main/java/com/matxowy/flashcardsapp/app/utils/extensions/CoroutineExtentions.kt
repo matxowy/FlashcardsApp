@@ -1,4 +1,4 @@
-package com.matxowy.flashcardsapp.app.utils
+package com.matxowy.flashcardsapp.app.utils.extensions
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/DialogTitle"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:text="@string/first_flashcard_dialog_text" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilFlashcardFront"
+        style="@style/Widget.App.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_margin">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/flashcardFront"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/front_of_flashcard_hint_text"
+            android:inputType="none"
+            android:textAppearance="?attr/textAppearanceBodyLarge" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilFlashcardBack"
+        style="@style/Widget.App.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/flashcardBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/back_of_flashcard_hint_text"
+            android:inputType="none"
+            android:textAppearance="?attr/textAppearanceBodyLarge" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>
+
