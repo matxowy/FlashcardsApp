@@ -31,8 +31,6 @@ class AddFlashcardsViewModel @Inject constructor(
     val viewState = _viewState.asStateFlow()
 
     private var categoryId = DEFAULT_INT_VALUE
-    private var flashcardTextFront = DEFAULT_EMPTY_STRING
-    private var flashcardTextBack = DEFAULT_EMPTY_STRING
     private var isCategorySelected = false
 
     init {
@@ -48,41 +46,23 @@ class AddFlashcardsViewModel @Inject constructor(
         this.categoryId = categoryId
     }
 
-    fun onAddFlashcardClick() = viewModelScope.launch(coroutineDispatcher) {
+    fun onAddFlashcardClick(flashcardTextFront: String, flashcardTextBack: String) = viewModelScope.launch(coroutineDispatcher) {
         try {
             insertFlashcardUseCase(flashcardTextFront, flashcardTextBack, categoryId)
-            setDefaultValuesToFields()
             AddFlashcardsEvent.ShowAddFlashcardConfirmation.send()
         } catch (e: Exception) {
-            setDefaultValuesToFields()
             AddFlashcardsEvent.ShowDefaultError.send()
         }
     }
 
-    fun setFlashcardFrontText(text: String) {
-        flashcardTextFront = text
-        setButtonState()
-    }
-
-    fun setFlashcardBackText(text: String) {
-        flashcardTextBack = text
-        setButtonState()
-    }
-
-    fun setIsCategorySelected() {
+    fun setIsCategorySelected(flashcardTextFront: String, flashcardTextBack: String) {
         isCategorySelected = true
-        setButtonState()
+        setButtonState(flashcardTextFront = flashcardTextFront, flashcardTextBack = flashcardTextBack)
     }
 
-    private fun setButtonState() {
+    fun setButtonState(flashcardTextFront: String, flashcardTextBack: String) {
         val isButtonEnable = flashcardTextFront.isNotBlank() && flashcardTextBack.isNotBlank() && isCategorySelected
         _viewState.update { it.copy(isButtonEnable = isButtonEnable) }
-    }
-
-    private fun setDefaultValuesToFields() {
-        flashcardTextBack = DEFAULT_EMPTY_STRING
-        flashcardTextFront = DEFAULT_EMPTY_STRING
-        setButtonState()
     }
 
     data class ViewState(
@@ -102,6 +82,5 @@ class AddFlashcardsViewModel @Inject constructor(
 
     companion object {
         const val DEFAULT_INT_VALUE = 0
-        const val DEFAULT_EMPTY_STRING = ""
     }
 }

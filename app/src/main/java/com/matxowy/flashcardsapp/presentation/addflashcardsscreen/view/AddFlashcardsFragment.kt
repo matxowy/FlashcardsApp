@@ -53,15 +53,15 @@ class AddFlashcardsFragment : Fragment(R.layout.add_flashcards_fragment) {
     private fun addListeners() {
         binding.apply {
             flashcardFront.addTextChangedListener { text ->
-                viewModel.setFlashcardFrontText(text.toString())
+                viewModel.setButtonState(flashcardTextFront = text.toString(), flashcardTextBack = flashcardBack.text.toString())
             }
 
             flashcardBack.addTextChangedListener { text ->
-                viewModel.setFlashcardBackText(text.toString())
+                viewModel.setButtonState(flashcardTextFront = flashcardFront.text.toString(), flashcardTextBack = text.toString())
             }
 
             btnAddFlashcards.setOnClickListener {
-                viewModel.onAddFlashcardClick()
+                viewModel.onAddFlashcardClick(flashcardTextFront = flashcardFront.text.toString(), flashcardTextBack = flashcardBack.text.toString())
             }
         }
     }
@@ -96,7 +96,10 @@ class AddFlashcardsFragment : Fragment(R.layout.add_flashcards_fragment) {
         binding.apply {
             spinnerCategories.setAdapter(spinnerAdapter)
             spinnerCategories.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-                viewModel.setIsCategorySelected()
+                viewModel.setIsCategorySelected(
+                    flashcardTextFront = flashcardFront.text.toString(),
+                    flashcardTextBack = flashcardBack.text.toString()
+                )
                 viewModel.onItemSpinnerClick(listOfCategories[position].id)
             }
         }
