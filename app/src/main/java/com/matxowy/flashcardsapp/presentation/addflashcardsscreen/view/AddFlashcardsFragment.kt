@@ -25,16 +25,11 @@ class AddFlashcardsFragment : Fragment(R.layout.add_flashcards_fragment) {
     private var _binding: AddFlashcardsFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private var flashcardTextFront = DEFAULT_EMPTY_STRING
-    private var flashcardTextBack = DEFAULT_EMPTY_STRING
-    private var isCategorySelected = false
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = AddFlashcardsFragmentBinding.bind(view)
 
-        setButtonState()
         addListeners()
         handleAddFlashcardsViewState()
         handleAddFlashcardsEvents()
@@ -44,9 +39,11 @@ class AddFlashcardsFragment : Fragment(R.layout.add_flashcards_fragment) {
         viewModel.addFlashcardsEvent.observeWithLifecycle(viewLifecycleOwner) { event ->
             when (event) {
                 is AddFlashcardsViewModel.AddFlashcardsEvent.ShowAddFlashcardConfirmation -> {
+                    setDefaultView()
                     Snackbar.make(requireView(), R.string.add_flashcard_confirmation_message, Snackbar.LENGTH_LONG).show()
                 }
                 is AddFlashcardsViewModel.AddFlashcardsEvent.ShowDefaultError -> {
+                    setDefaultView()
                     Snackbar.make(requireView(), R.string.default_error_message, Snackbar.LENGTH_LONG).show()
                 }
             }
@@ -56,25 +53,20 @@ class AddFlashcardsFragment : Fragment(R.layout.add_flashcards_fragment) {
     private fun addListeners() {
         binding.apply {
             flashcardFront.addTextChangedListener { text ->
-                flashcardTextFront = text.toString()
-                setButtonState()
+                viewModel.setFlashcardFrontText(text.toString())
             }
 
             flashcardBack.addTextChangedListener { text ->
-                flashcardTextBack = text.toString()
-                setButtonState()
+                viewModel.setFlashcardBackText(text.toString())
             }
 
             btnAddFlashcards.setOnClickListener {
-                viewModel.onAddFlashcardClick(flashcardTextFront, flashcardTextBack)
-                setDefaultView()
+                viewModel.onAddFlashcardClick()
             }
         }
     }
 
     private fun setDefaultView() {
-        flashcardTextBack = DEFAULT_EMPTY_STRING
-        flashcardTextFront = DEFAULT_EMPTY_STRING
         binding.apply {
             flashcardFront.apply {
                 setText(DEFAULT_EMPTY_STRING)
@@ -85,7 +77,6 @@ class AddFlashcardsFragment : Fragment(R.layout.add_flashcards_fragment) {
                 clearFocus()
             }
         }
-        setButtonState()
         hideKeyboard()
     }
 
@@ -95,12 +86,9 @@ class AddFlashcardsFragment : Fragment(R.layout.add_flashcards_fragment) {
             binding.apply {
                 cpiLoading.isVisible = viewState.isLoading
                 tilSpinnerCategories.isVisible = viewState.isLoading.not()
+                btnAddFlashcards.isEnabled = viewState.isButtonEnable
             }
         }
-    }
-
-    private fun setButtonState() {
-        binding.btnAddFlashcards.isEnabled = flashcardTextFront.isNotBlank() && flashcardTextBack.isNotBlank() && isCategorySelected
     }
 
     private fun setSpinner(context: Context, listOfCategories: List<Category>) {
@@ -108,8 +96,7 @@ class AddFlashcardsFragment : Fragment(R.layout.add_flashcards_fragment) {
         binding.apply {
             spinnerCategories.setAdapter(spinnerAdapter)
             spinnerCategories.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-                isCategorySelected = true
-                setButtonState()
+                viewModel.setIsCategorySelected()
                 viewModel.onItemSpinnerClick(listOfCategories[position].id)
             }
         }
