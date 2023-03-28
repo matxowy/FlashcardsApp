@@ -9,7 +9,10 @@ import com.matxowy.flashcardsapp.domain.addcategory.usecase.InsertFirstFlashcard
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
@@ -23,6 +26,9 @@ class AddFirstFlashcardDialogViewModel @Inject constructor(
     private val addFirstFlashcardChannel = Channel<AddFirstFlashcardDialogEvent>(capacity = Channel.BUFFERED)
     val addFirstFlashcardEvent = addFirstFlashcardChannel.receiveAsFlow()
 
+    private val _viewState = MutableStateFlow(ViewState())
+    val viewState = _viewState.asStateFlow()
+
     fun onAddButtonClick(categoryName: String, flashcardFront: String, flashcardBack: String) = viewModelScope.launch(coroutineDispatcher) {
         try {
             val idOfInsertedCategory = insertCategoryUseCase(categoryName).toInt()
@@ -32,6 +38,15 @@ class AddFirstFlashcardDialogViewModel @Inject constructor(
             AddFirstFlashcardDialogEvent.SetFragmentResult(RESULT_ERROR).send()
         }
     }
+
+    fun setButtonState(flashcardFrontText: String, flashcardBackText: String) {
+        val isButtonEnable = flashcardFrontText.isNotBlank() && flashcardBackText.isNotBlank()
+        _viewState.update { it.copy(isAddButtonEnable = isButtonEnable) }
+    }
+
+    data class ViewState(
+        val isAddButtonEnable: Boolean = false
+    )
 
     sealed class AddFirstFlashcardDialogEvent {
         data class SetFragmentResult(val result: Int) : AddFirstFlashcardDialogEvent()
