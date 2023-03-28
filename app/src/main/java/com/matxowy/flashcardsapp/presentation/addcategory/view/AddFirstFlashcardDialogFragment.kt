@@ -25,9 +25,6 @@ class AddFirstFlashcardDialogFragment(private val categoryName: String) : Dialog
     private val binding get() = _binding!!
     private lateinit var dialogView: View
 
-    private var flashcardTextFront = DEFAULT_EMPTY_STRING
-    private var flashcardTextBack = DEFAULT_EMPTY_STRING
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         activity?.let {
             _binding = AddFirstFlashcardDialogBinding.inflate(layoutInflater)
@@ -37,8 +34,8 @@ class AddFirstFlashcardDialogFragment(private val categoryName: String) : Dialog
                 .setPositiveButton(R.string.add_btn_text) { _, _ ->
                     viewModel.onAddButtonClick(
                         categoryName,
-                        flashcardTextFront,
-                        flashcardTextBack
+                        binding.flashcardFront.text.toString(),
+                        binding.flashcardBack.text.toString()
                     )
                 }
                 .setNegativeButton(R.string.cancel_btn_text) { dialog, _ ->
@@ -53,37 +50,31 @@ class AddFirstFlashcardDialogFragment(private val categoryName: String) : Dialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        addTextListenersToFields()
         handleAddFirstFlashcardEvents()
+        handleAddFirstFlashcardViewState()
     }
 
-    override fun onResume() {
-        super.onResume()
+    private fun handleAddFirstFlashcardViewState() {
         val alertDialog = dialog as AlertDialog
-
-        setButtonPositiveToDisabled(alertDialog)
-        addTextListenersToFields(alertDialog)
-    }
-
-    private fun addTextListenersToFields(alertDialog: AlertDialog) {
-        binding.apply {
-            flashcardFront.addTextChangedListener { text ->
-                flashcardTextFront = text.toString()
-                setButtonState(alertDialog)
-            }
-
-            flashcardBack.addTextChangedListener { text ->
-                flashcardTextBack = text.toString()
-                setButtonState(alertDialog)
+        viewModel.viewState.observeWithLifecycle(viewLifecycleOwner) { viewState ->
+            binding.apply {
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = viewState.isAddButtonEnable
             }
         }
     }
 
-    private fun setButtonState(alertDialog: AlertDialog) {
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = flashcardTextFront.isNotBlank() && flashcardTextBack.isNotBlank()
-    }
+    private fun addTextListenersToFields() {
+        binding.apply {
+            flashcardFront.addTextChangedListener { text ->
+                viewModel.setButtonState(flashcardFrontText = text.toString(), flashcardBackText = flashcardBack.text.toString())
+            }
 
-    private fun setButtonPositiveToDisabled(alertDialog: AlertDialog) {
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
+            flashcardBack.addTextChangedListener { text ->
+                viewModel.setButtonState(flashcardFrontText = flashcardFront.text.toString(), flashcardBackText = text.toString())
+            }
+        }
     }
 
     private fun handleAddFirstFlashcardEvents() {
@@ -108,6 +99,5 @@ class AddFirstFlashcardDialogFragment(private val categoryName: String) : Dialog
         const val ADD_FIRST_FLASHCARD_REQUEST = "add_first_flashcard_request"
         const val ADD_FIRST_FLASHCARD_RESULT = "add_first_flashcard_result"
         const val EXCEPTION_MESSAGE = "Activity cannot be null"
-        const val DEFAULT_EMPTY_STRING = ""
     }
 }
