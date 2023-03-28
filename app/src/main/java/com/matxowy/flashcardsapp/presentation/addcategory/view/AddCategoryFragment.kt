@@ -45,11 +45,15 @@ class AddCategoryFragment : Fragment(R.layout.add_category_fragment) {
                     val dialog = AddFirstFlashcardDialogFragment(event.categoryName)
                     dialog.show(parentFragmentManager, ADD_FIRST_FLASHCARD_DIALOG_TAG)
                 }
+                is AddCategoryViewModel.AddCategoryEvent.ShowAddCategoryConfirmationMessage -> {
+                    Snackbar.make(requireView(), getString(R.string.category_added_message), Snackbar.LENGTH_LONG).show()
+                }
                 is AddCategoryViewModel.AddCategoryEvent.ShowDefaultError -> {
                     Snackbar.make(requireView(), R.string.default_error_message, Snackbar.LENGTH_LONG).show()
                 }
-                is AddCategoryViewModel.AddCategoryEvent.ShowAddCategoryConfirmationMessage -> {
-                    Snackbar.make(requireView(), R.string.category_added_message, Snackbar.LENGTH_LONG).show()
+                is AddCategoryViewModel.AddCategoryEvent.ShowNameAlreadyExistsError -> {
+                    // todo add keyboard hide
+                    Snackbar.make(requireView(), R.string.name_already_exists_error_message, Snackbar.LENGTH_LONG).show()
                 }
             }
         }
