@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.matxowy.flashcardsapp.R
 import com.matxowy.flashcardsapp.app.utils.extensions.observeWithLifecycle
+import com.matxowy.flashcardsapp.app.utils.hideKeyboard
 import com.matxowy.flashcardsapp.databinding.AddCategoryFragmentBinding
 import com.matxowy.flashcardsapp.presentation.addcategory.view.AddFirstFlashcardDialogFragment.Companion.ADD_FIRST_FLASHCARD_REQUEST
 import com.matxowy.flashcardsapp.presentation.addcategory.view.AddFirstFlashcardDialogFragment.Companion.ADD_FIRST_FLASHCARD_RESULT
@@ -45,11 +46,16 @@ class AddCategoryFragment : Fragment(R.layout.add_category_fragment) {
                     val dialog = AddFirstFlashcardDialogFragment(event.categoryName)
                     dialog.show(parentFragmentManager, ADD_FIRST_FLASHCARD_DIALOG_TAG)
                 }
+                is AddCategoryViewModel.AddCategoryEvent.ShowAddCategoryConfirmationMessage -> {
+                    Snackbar.make(requireView(), getString(R.string.category_added_message), Snackbar.LENGTH_LONG).show()
+                }
                 is AddCategoryViewModel.AddCategoryEvent.ShowDefaultError -> {
+                    hideKeyboard()
                     Snackbar.make(requireView(), R.string.default_error_message, Snackbar.LENGTH_LONG).show()
                 }
-                is AddCategoryViewModel.AddCategoryEvent.ShowAddCategoryConfirmationMessage -> {
-                    Snackbar.make(requireView(), R.string.category_added_message, Snackbar.LENGTH_LONG).show()
+                is AddCategoryViewModel.AddCategoryEvent.ShowNameAlreadyExistsError -> {
+                    hideKeyboard()
+                    Snackbar.make(requireView(), R.string.name_already_exists_error_message, Snackbar.LENGTH_LONG).show()
                 }
             }
         }
