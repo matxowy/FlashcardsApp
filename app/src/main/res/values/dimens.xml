@@ -16,4 +16,5 @@
 
     <dimen name="max_constraint_width_for_buttons">320dp</dimen>
     <dimen name="max_constraint_width_for_textview">488dp</dimen>
+    <dimen name="margin_top_for_main_recyclerview">280dp</dimen>
 </resources>

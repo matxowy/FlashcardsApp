@@ -22,4 +22,5 @@
     <string name="first_flashcard_dialog_text">Add the first flashcard to the given category to continue</string>
     <string name="add_flashcard_confirmation_message">The flashcard has been added</string>
     <string name="name_already_exists_error_message">Category name already exists. Enter a unique name</string>
+    <string name="amount_of_flashcards_text">Amount of flashcards</string>
 </resources>

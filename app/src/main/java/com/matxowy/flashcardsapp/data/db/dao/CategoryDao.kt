@@ -20,6 +20,9 @@ interface CategoryDao {
     @Query("SELECT name FROM category WHERE id = :categoryId")
     fun getCategoryName(categoryId: Int): String
 
+    @Query("UPDATE category SET amountOfFlashcards = amountOfFlashcards + 1 WHERE id = :categoryId")
+    fun incrementFlashcardCount(categoryId: Int)
+
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(category: Category): Long
 

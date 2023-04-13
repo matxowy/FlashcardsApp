@@ -9,6 +9,7 @@ interface DatabaseRepository {
     suspend fun getCategoryName(categoryId: Int): String
     suspend fun getCategoryNames(): List<String>
     suspend fun getFlashcardsForCategory(categoryId: Int): List<Flashcard>
+    suspend fun incrementFlashcardCount(categoryId: Int)
     suspend fun insertCategory(categoryName: String): Long
     suspend fun insertFlashcard(flashcardFront: String, flashcardBack: String, categoryId: Int)
 }

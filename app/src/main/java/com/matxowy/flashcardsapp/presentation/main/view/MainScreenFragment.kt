@@ -1,23 +1,22 @@
 package com.matxowy.flashcardsapp.presentation.main.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.matxowy.flashcardsapp.R
 import com.matxowy.flashcardsapp.app.utils.extensions.observeWithLifecycle
 import com.matxowy.flashcardsapp.data.db.entity.Category
 import com.matxowy.flashcardsapp.databinding.MainScreenFragmentBinding
+import com.matxowy.flashcardsapp.presentation.main.adapters.CategoryAdapter
 import com.matxowy.flashcardsapp.presentation.main.viewmodel.MainScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainScreenFragment : Fragment(R.layout.main_screen_fragment) {
+class MainScreenFragment : Fragment(R.layout.main_screen_fragment), CategoryAdapter.OnCategoryItemClickListener {
 
     private val viewModel: MainScreenViewModel by viewModels()
     private var _binding: MainScreenFragmentBinding? = null
@@ -28,36 +27,29 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment) {
 
         _binding = MainScreenFragmentBinding.bind(view)
 
+        val categoryAdapter = CategoryAdapter(this)
+
+        setAdapter(categoryAdapter)
         handleMainScreenEvents()
         setListeners()
-        handleViewState()
+        handleViewState(categoryAdapter)
     }
 
-    private fun handleViewState() {
+    private fun setAdapter(categoryAdapter: CategoryAdapter) {
+        binding.rvCategories.apply {
+            adapter = categoryAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+        }
+    }
+
+    private fun handleViewState(categoryAdapter: CategoryAdapter) {
         viewModel.viewState.observeWithLifecycle(viewLifecycleOwner) { viewState ->
-            setSpinner(requireContext(), viewState.categories)
+            categoryAdapter.submitList(viewState.categories.takeIf { it.isNotEmpty() })
             binding.apply {
                 cpiLoading.isVisible = viewState.isLoading
-                tilSpinnerCategories.isVisible = viewState.isLoading.not()
+                rvCategories.isVisible = viewState.isLoading.not()
             }
-        }
-    }
-
-    private fun setSpinner(context: Context, listOfCategories: List<Category>) {
-        val spinnerAdapter = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, listOfCategories)
-        binding.apply {
-            spinnerCategories.setAdapter(spinnerAdapter)
-            spinnerCategories.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-                viewModel.onItemSpinnerClick(listOfCategories[position].id)
-                resetSpinnerChoose()
-            }
-        }
-    }
-
-    private fun resetSpinnerChoose() {
-        binding.apply {
-            spinnerCategories.text.clear()
-            spinnerCategories.clearFocus()
         }
     }
 
@@ -89,6 +81,10 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment) {
                 }
             }
         }
+    }
+
+    override fun onCategoryItemClick(category: Category) {
+        viewModel.onCategoryItemClick(category.id)
     }
 
     override fun onDestroyView() {

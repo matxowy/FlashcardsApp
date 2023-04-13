@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="@dimen/default_side_margin">
@@ -13,18 +12,14 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAddCategory"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_margin"
-        android:text="@string/add_category_btn_text"
-        android:textAppearance="@style/TextAppearance.ButtonSmall"
-        app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCategories"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_top_for_main_recyclerview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_add_flashcards"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_max="@dimen/max_constraint_width_for_buttons" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_flashcards"
@@ -39,42 +34,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_max="@dimen/max_constraint_width_for_buttons" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        android:text="@string/add_category_btn_text"
+        android:textAppearance="@style/TextAppearance.ButtonSmall"
+        app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_add_flashcards"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="@dimen/max_constraint_width_for_buttons" />
+
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/cpiLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCategories"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal"
-        />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilSpinnerCategories"
-        style="@style/Widget.App.ExposedDropdownMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal"
-        app:layout_constraintWidth_max="@dimen/max_constraint_width_for_textview">
-
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/spinnerCategories"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/choose_a_category_to_start_learning"
-            android:inputType="none"
-            android:textAppearance="?attr/textAppearanceBodyLarge" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
