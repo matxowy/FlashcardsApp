@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.matxowy.flashcardsapp.R
-import com.matxowy.flashcardsapp.app.ApplicationScope
+import com.matxowy.flashcardsapp.app.di.ApplicationScope
 import com.matxowy.flashcardsapp.data.db.dao.CategoryDao
 import com.matxowy.flashcardsapp.data.db.dao.CategoryDetailDao
 import com.matxowy.flashcardsapp.data.db.dao.FlashcardDao
