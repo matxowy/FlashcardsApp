@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.matxowy.flashcardsapp.R
 import com.matxowy.flashcardsapp.app.utils.extensions.observeWithLifecycle
-import com.matxowy.flashcardsapp.data.db.entity.Category
+import com.matxowy.flashcardsapp.data.db.entity.CategoryDetail
 import com.matxowy.flashcardsapp.databinding.MainScreenFragmentBinding
 import com.matxowy.flashcardsapp.presentation.main.adapters.CategoryAdapter
 import com.matxowy.flashcardsapp.presentation.main.viewmodel.MainScreenViewModel
@@ -83,7 +83,7 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment), CategoryAdap
         }
     }
 
-    override fun onCategoryItemClick(category: Category) {
+    override fun onCategoryItemClick(category: CategoryDetail) {
         viewModel.onCategoryItemClick(category.id)
     }
 

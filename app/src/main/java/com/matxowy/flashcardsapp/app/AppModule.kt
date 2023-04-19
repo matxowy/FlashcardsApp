@@ -22,7 +22,6 @@ class AppModule {
     @Singleton
     fun provideFlashcardDatabase(app: Application, callback: FlashcardsDatabase.Callback) =
         Room.databaseBuilder(app, FlashcardsDatabase::class.java, "flashcard_database")
-            .fallbackToDestructiveMigration()
             .addCallback(callback)
             .build()
 

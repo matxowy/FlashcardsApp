@@ -12,13 +12,13 @@ class DatabaseRemoteRepository @Inject constructor(
 ) : DatabaseRepository {
     override suspend fun getCategories() = categoryDao.getCategories()
 
+    override suspend fun getCategoriesWithDetails() = categoryDao.getCategoriesWithDetails()
+
     override suspend fun getCategoryName(categoryId: Int) = categoryDao.getCategoryName(categoryId)
 
     override suspend fun getCategoryNames() = categoryDao.getCategoryNames()
 
     override suspend fun getFlashcardsForCategory(categoryId: Int) = flashcardDao.getFlashcardsForCategory(categoryId)
-
-    override suspend fun incrementFlashcardCount(categoryId: Int) = categoryDao.incrementFlashcardCount(categoryId)
 
     override suspend fun insertCategory(categoryName: String) = categoryDao.insert(Category(name = categoryName))
 

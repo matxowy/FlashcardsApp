@@ -1,6 +1,7 @@
 package com.matxowy.flashcardsapp.data.db
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -9,6 +10,7 @@ import com.matxowy.flashcardsapp.app.ApplicationScope
 import com.matxowy.flashcardsapp.data.db.dao.CategoryDao
 import com.matxowy.flashcardsapp.data.db.dao.FlashcardDao
 import com.matxowy.flashcardsapp.data.db.entity.Category
+import com.matxowy.flashcardsapp.data.db.entity.CategoryDetail
 import com.matxowy.flashcardsapp.data.db.entity.Flashcard
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +20,9 @@ import javax.inject.Provider
 
 @Database(
     entities = [Category::class, Flashcard::class],
-    version = 1
+    views = [CategoryDetail::class],
+    version = 2,
+    autoMigrations = [AutoMigration(from = 1, to = 2)]
 )
 abstract class FlashcardsDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao

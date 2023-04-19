@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.matxowy.flashcardsapp.data.db.entity.Category
+import com.matxowy.flashcardsapp.data.db.entity.CategoryDetail
 import com.matxowy.flashcardsapp.databinding.CategoryItemBinding
 
-class CategoryAdapter(private val listener: OnCategoryItemClickListener) : ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffCallback()) {
+class CategoryAdapter(private val listener: OnCategoryItemClickListener) : ListAdapter<CategoryDetail, CategoryAdapter.CategoryViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val binding = CategoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -33,7 +33,7 @@ class CategoryAdapter(private val listener: OnCategoryItemClickListener) : ListA
             }
         }
 
-        fun bind(category: Category) {
+        fun bind(category: CategoryDetail) {
             binding.apply {
                 mtvCategoryName.text = category.name
                 mtvAmountOfFlashcards.text = category.amountOfFlashcards.toString()
@@ -42,14 +42,14 @@ class CategoryAdapter(private val listener: OnCategoryItemClickListener) : ListA
     }
 
     interface OnCategoryItemClickListener {
-        fun onCategoryItemClick(category: Category)
+        fun onCategoryItemClick(category: CategoryDetail)
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<Category>() {
-        override fun areItemsTheSame(oldItem: Category, newItem: Category) =
+    class DiffCallback : DiffUtil.ItemCallback<CategoryDetail>() {
+        override fun areItemsTheSame(oldItem: CategoryDetail, newItem: CategoryDetail) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: Category, newItem: Category) =
+        override fun areContentsTheSame(oldItem: CategoryDetail, newItem: CategoryDetail) =
             oldItem == newItem
     }
 }

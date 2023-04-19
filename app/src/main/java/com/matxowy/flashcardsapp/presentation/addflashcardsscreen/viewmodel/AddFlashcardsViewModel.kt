@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.matxowy.flashcardsapp.data.db.entity.Category
 import com.matxowy.flashcardsapp.domain.addflashcards.usecase.GetCategoriesUseCase
-import com.matxowy.flashcardsapp.domain.addflashcards.usecase.IncrementFlashcardCountUseCase
 import com.matxowy.flashcardsapp.domain.addflashcards.usecase.InsertFlashcardUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -21,7 +20,6 @@ import javax.inject.Named
 @HiltViewModel
 class AddFlashcardsViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase,
-    private val incrementFlashcardCountUseCase: IncrementFlashcardCountUseCase,
     private val insertFlashcardUseCase: InsertFlashcardUseCase,
     @Named("IO") private val coroutineDispatcher: CoroutineDispatcher
 ) : ViewModel() {
@@ -51,7 +49,6 @@ class AddFlashcardsViewModel @Inject constructor(
     fun onAddFlashcardClick(flashcardTextFront: String, flashcardTextBack: String) = viewModelScope.launch(coroutineDispatcher) {
         try {
             insertFlashcardUseCase(flashcardTextFront, flashcardTextBack, categoryId)
-            incrementFlashcardCountUseCase(categoryId)
             AddFlashcardsEvent.ShowAddFlashcardConfirmation.send()
         } catch (e: Exception) {
             AddFlashcardsEvent.ShowDefaultError.send()

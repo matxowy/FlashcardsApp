@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "346071b554934864c9bce42af6760847",
+    "version": 2,
+    "identityHash": "dfc2c0bffaff151a2dbc58bef8239450",
     "entities": [
       {
         "tableName": "category",
@@ -69,10 +69,15 @@
         "foreignKeys": []
       }
     ],
-    "views": [],
+    "views": [
+      {
+        "viewName": "CategoryDetail",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT category.id, category.name, count(*) as amountOfFlashcards FROM category JOIN flashcard ON category.id == flashcard.categoryId GROUP BY category.id"
+      }
+    ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '346071b554934864c9bce42af6760847')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dfc2c0bffaff151a2dbc58bef8239450')"
     ]
   }
 }
