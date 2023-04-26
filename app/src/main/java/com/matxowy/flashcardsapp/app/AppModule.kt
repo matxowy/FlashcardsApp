@@ -22,13 +22,17 @@ class AppModule {
     @Singleton
     fun provideFlashcardDatabase(app: Application, callback: FlashcardsDatabase.Callback) =
         Room.databaseBuilder(app, FlashcardsDatabase::class.java, "flashcard_database")
-            .fallbackToDestructiveMigration()
             .addCallback(callback)
+            .addMigrations(FlashcardsDatabase.migration1To2)
             .build()
 
     @Provides
     @Singleton
     fun provideCategoryDao(db: FlashcardsDatabase) = db.categoryDao()
+
+    @Provides
+    @Singleton
+    fun provideCategoryDetailDao(db: FlashcardsDatabase) = db.categoryDetailDao()
 
     @Provides
     @Singleton

@@ -3,12 +3,15 @@ package com.matxowy.flashcardsapp.data.db
 import android.content.Context
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.matxowy.flashcardsapp.R
 import com.matxowy.flashcardsapp.app.ApplicationScope
 import com.matxowy.flashcardsapp.data.db.dao.CategoryDao
+import com.matxowy.flashcardsapp.data.db.dao.CategoryDetailDao
 import com.matxowy.flashcardsapp.data.db.dao.FlashcardDao
 import com.matxowy.flashcardsapp.data.db.entity.Category
+import com.matxowy.flashcardsapp.data.db.entity.CategoryDetail
 import com.matxowy.flashcardsapp.data.db.entity.Flashcard
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
@@ -18,10 +21,12 @@ import javax.inject.Provider
 
 @Database(
     entities = [Category::class, Flashcard::class],
-    version = 1
+    views = [CategoryDetail::class],
+    version = 2
 )
 abstract class FlashcardsDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
+    abstract fun categoryDetailDao(): CategoryDetailDao
     abstract fun flashcardDao(): FlashcardDao
 
     class Callback @Inject constructor(
@@ -46,20 +51,16 @@ abstract class FlashcardsDatabase : RoomDatabase() {
                         categoryId = 1
                     )
                 )
-                // TODO: Remove inserting more than one flashcard when adding flashcards will be implemented (after FCA-12)
-                flashcardDao.insert(
-                    Flashcard(
-                        frontText = "testPL",
-                        backText = "testANG",
-                        categoryId = 1
-                    )
-                )
-                flashcardDao.insert(
-                    Flashcard(
-                        frontText = "test2PL",
-                        backText = "test2ANG",
-                        categoryId = 1
-                    )
+            }
+        }
+    }
+
+    companion object {
+        val migration1To2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(
+                    "CREATE VIEW IF NOT EXISTS CategoryDetail AS SELECT category.id, category.name, count(*) as amountOfFlashcards " +
+                        "FROM category JOIN flashcard ON category.id == flashcard.categoryId GROUP BY category.id"
                 )
             }
         }
