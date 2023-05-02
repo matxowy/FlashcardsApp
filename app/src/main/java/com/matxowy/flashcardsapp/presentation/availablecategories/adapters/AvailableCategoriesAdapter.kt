@@ -26,7 +26,10 @@ class AvailableCategoriesAdapter(private val listener: OnDownloadCategoryClickLi
             binding.apply {
                 mtvCategoryName.text = category.name
                 cbDownload.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) listener.onDownloadCategoryClick(category)
+                    if (isChecked) {
+                        listener.onDownloadCategoryClick(category)
+                        cbDownload.isEnabled = false
+                    }
                 }
             }
         }

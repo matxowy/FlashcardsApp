@@ -28,4 +28,6 @@
     <string name="permission_dialog_title">Nie przyznano uprawnienia</string>
     <string name="available_categories_text">Dostępne kategorie</string>
     <string name="available_categories_to_add_text">Dostępne kategorie do dodania</string>
+    <string name="no_new_categories_to_add_text">Obecnie nie ma żadnych nowych kategorii do dodania. Sprawdź później</string>
+    <string name="category_successfully_saved_text">Kategoria zapisana pomyślnie</string>
 </resources>

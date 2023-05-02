@@ -17,6 +17,20 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtvNoNewCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_new_categories_to_add_text"
+        android:layout_marginTop="@dimen/small_margin"
+        android:textAppearance="?attr/textAppearanceLabelMedium"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/cpiLoading"
         android:layout_width="wrap_content"

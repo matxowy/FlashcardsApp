@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.matxowy.flashcardsapp.R
 import com.matxowy.flashcardsapp.app.utils.extensions.observeWithLifecycle
 import com.matxowy.flashcardsapp.data.db.entity.Category
@@ -29,6 +30,20 @@ class AvailableCategoriesFragment : Fragment(R.layout.available_categories_fragm
 
         setAdapter(availableCategoriesAdapter)
         handleViewState(availableCategoriesAdapter)
+        handleAvailableCategoriesEvents()
+    }
+
+    private fun handleAvailableCategoriesEvents() {
+        viewModel.availableCategoriesEvent.observeWithLifecycle(viewLifecycleOwner) { event ->
+            when (event) {
+                AvailableCategoriesViewModel.AvailableCategoriesEvent.ShowDownloadConfirmationMessage -> {
+                    Snackbar.make(requireView(), R.string.category_successfully_saved_text, Snackbar.LENGTH_LONG).show()
+                }
+                AvailableCategoriesViewModel.AvailableCategoriesEvent.ShowDefaultErrorMessage -> {
+                    Snackbar.make(requireView(), R.string.default_error_message, Snackbar.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
     private fun setAdapter(availableCategoriesAdapter: AvailableCategoriesAdapter) {
@@ -45,6 +60,7 @@ class AvailableCategoriesFragment : Fragment(R.layout.available_categories_fragm
             binding.apply {
                 cpiLoading.isVisible = viewState.isLoading
                 rvAvailableCategories.isVisible = viewState.isLoading.not()
+                mtvNoNewCategories.isVisible = viewState.isListEmpty
             }
         }
     }
@@ -54,7 +70,7 @@ class AvailableCategoriesFragment : Fragment(R.layout.available_categories_fragm
     }
 
     override fun onCategoryItemClick(category: Category) {
-        // TODO: Expand this feature with this functionality. Add dialog after click on item to show description about category.
+        // TODO: [FCA-18] Expand this feature with this functionality. Add dialog after click on item to show description about category.
     }
 
     override fun onDestroyView() {
