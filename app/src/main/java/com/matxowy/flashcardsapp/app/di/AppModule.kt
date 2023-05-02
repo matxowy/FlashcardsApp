@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+import com.google.firebase.firestore.FirebaseFirestore
 import com.matxowy.flashcardsapp.data.db.FlashcardsDatabase
 import dagger.Module
 import dagger.Provides
@@ -28,6 +29,10 @@ class AppModule {
             .addCallback(callback)
             .addMigrations(FlashcardsDatabase.migration1To2)
             .build()
+
+    @Provides
+    @Singleton
+    fun provideFirestore() = FirebaseFirestore.getInstance()
 
     @Provides
     @Singleton

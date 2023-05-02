@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_learningScreenFragment"
             app:destination="@id/learningScreenFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_availableCategoriesFragment"
+            app:destination="@id/availableCategoriesFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCategoryFragment"
@@ -39,5 +42,10 @@
             android:name="categoryId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/availableCategoriesFragment"
+        android:name="com.matxowy.flashcardsapp.presentation.availablecategories.view.AvailableCategoriesFragment"
+        android:label="available_categories_fragment"
+        tools:layout="@layout/available_categories_fragment" />
 
 </navigation>

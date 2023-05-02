@@ -7,6 +7,7 @@ buildscript {
         appCompatVersion = "1.6.1"
         constraintLayoutVersion = "2.1.4"
         coroutinesVersion = "1.5.0"
+        coroutinesPlayServicesVersion = "1.6.4"
         fragmentVersion = "1.5.5"
         gradleVersion = '7.4.1'
         hiltVersion = "2.44.2"

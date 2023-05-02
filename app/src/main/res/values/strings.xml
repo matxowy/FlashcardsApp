@@ -25,4 +25,6 @@
     <string name="amount_of_flashcards_text">Amount of flashcards</string>
     <string name="notification_permission_dialog_message">Please grant this permission. Otherwise you will not receive notifications from application</string>
     <string name="permission_dialog_title">Permission not granted</string>
+    <string name="available_categories_text">Available categories</string>
+    <string name="available_categories_to_add_text">Available categories to add</string>
 </resources>

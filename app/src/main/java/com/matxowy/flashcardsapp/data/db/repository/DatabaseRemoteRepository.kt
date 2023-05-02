@@ -24,6 +24,10 @@ class DatabaseRemoteRepository @Inject constructor(
 
     override suspend fun insertCategory(categoryName: String) = categoryDao.insert(Category(name = categoryName))
 
+    override suspend fun insertCategory(category: Category): Long = categoryDao.insert(category)
+
     override suspend fun insertFlashcard(flashcardFront: String, flashcardBack: String, categoryId: Int) =
         flashcardDao.insert(Flashcard(frontText = flashcardFront, backText = flashcardBack, categoryId = categoryId))
+
+    override suspend fun insertFlashcard(flashcard: Flashcard) = flashcardDao.insert(flashcard)
 }
