@@ -24,4 +24,6 @@
     <string name="add_flashcard_confirmation_message">Fiszka została dodana</string>
     <string name="name_already_exists_error_message">Nazwa kategorii już istnieje. Wprowadź unikalną nazwę</string>
     <string name="amount_of_flashcards_text">Liczba fiszek</string>
+    <string name="notification_permission_dialog_message">Proszę przyznaj to uprawnienie. W przeciwnym razie nie będziesz otrzymywać powiadomień z aplikacji</string>
+    <string name="permission_dialog_title">Nie przyznano uprawnienia</string>
 </resources>

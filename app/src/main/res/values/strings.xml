@@ -23,4 +23,6 @@
     <string name="add_flashcard_confirmation_message">The flashcard has been added</string>
     <string name="name_already_exists_error_message">Category name already exists. Enter a unique name</string>
     <string name="amount_of_flashcards_text">Amount of flashcards</string>
+    <string name="notification_permission_dialog_message">Please grant this permission. Otherwise you will not receive notifications from application</string>
+    <string name="permission_dialog_title">Permission not granted</string>
 </resources>

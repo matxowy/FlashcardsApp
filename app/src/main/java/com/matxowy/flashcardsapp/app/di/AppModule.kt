@@ -1,11 +1,14 @@
-package com.matxowy.flashcardsapp.app
+package com.matxowy.flashcardsapp.app.di
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.matxowy.flashcardsapp.data.db.FlashcardsDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -25,6 +28,11 @@ class AppModule {
             .addCallback(callback)
             .addMigrations(FlashcardsDatabase.migration1To2)
             .build()
+
+    @Provides
+    @Singleton
+    fun provideSharePreferences(@ApplicationContext context: Context): SharedPreferences =
+        context.getSharedPreferences("flashcards_preferences", Context.MODE_PRIVATE)
 
     @Provides
     @Singleton
