@@ -26,7 +26,6 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment), CategoryAdap
         super.onViewCreated(view, savedInstanceState)
 
         _binding = MainScreenFragmentBinding.bind(view)
-
         val categoryAdapter = CategoryAdapter(this)
 
         setAdapter(categoryAdapter)
@@ -58,8 +57,20 @@ class MainScreenFragment : Fragment(R.layout.main_screen_fragment), CategoryAdap
             btnAddCategory.setOnClickListener {
                 viewModel.onAddCategoryButtonClick()
             }
+
             btnAddFlashcards.setOnClickListener {
                 viewModel.onAddFlashcardsButtonClick()
+            }
+
+            topAppBar.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.action_show_available_categories -> {
+                        val action = MainScreenFragmentDirections.actionMainScreenFragmentToAvailableCategoriesFragment()
+                        findNavController().navigate(action)
+                        true
+                    }
+                    else -> false
+                }
             }
         }
     }
